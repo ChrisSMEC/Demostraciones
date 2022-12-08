@@ -1,0 +1,311 @@
+\documentclass[titlepage]{article}
+\usepackage[utf8]{inputenc} %Para que el texto lea el español
+\usepackage[spanish]{babel}
+
+\usepackage{parskip}
+
+\usepackage{geometry}
+\geometry{letterpaper,margin=2.54cm}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+
+
+\begin{document}
+\title{Demostración ecuaciones de TDC}
+\author{Christian Cantariño Salas}
+\date{\today}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Introducción}
+Se realizara la demostración de las ecuaciones de conducción en coordenadas cartesianas, cilindricas y esfericas.
+
+\section{Conducción térmica}
+\subsection{Conducción general en coordenadas cartesianas}
+El analisis comienza con la base de un volumen de control $VC(\triangle x,\triangle y,\triangle z)$, en el que existen las siguientes condiciones:
+
+\begin{itemize}
+    \item Se transfiere calor por las caras del cubo.
+    \item Presenta generación interna de calor $E_{gen}$.
+    \item Acumula energía interna $E_{acu}$.
+\end{itemize}
+
+Se define la energía generada dentro del $VC$:
+\begin{equation}
+    E_{gen}= \dot {q}_v \cdot dV=\dot {q}_v \cdot dxdydz
+    \label{eq:ec_1}
+\end{equation}
+
+Por otro lado, el calor especifico a presión constante:
+\begin{equation}
+    C_P= \frac{\partial U}{\partial t}
+    \label{eq:ec_2}
+\end{equation}
+
+Teniendo en cuenta que se trata de un volumen de control, se añadira la masa a la ecuación, y ademas, se sabe que la energía se acumula, por lo que varia con el tiempo. La ecuación \ref{eq:ec_2} reescrita:
+\begin{equation}
+     \partial{U}=E_{acu}=\rho C_P \frac{\partial T}{\partial t} \cdot dxdydz
+\end{equation}
+
+Utilizando los parametros anteriores y aplicandolos en la primera ley de la Termodinámica:
+\begin{equation}
+    E_{acu}=Q_X - Q_{X+\triangle X} + Q_Y - Q_{Y+\triangle Y} + Q_Z - Q_{Z+\triangle Z} -E_{gen}
+    \label{eq:ec_3}
+\end{equation}
+
+Ademas el termino $Q_{X+\triangle X}$ se puede aproximar por series de Taylor \textbf{exactas}. La forma general para las tres dimensiones espaciales sera:
+\begin{equation}
+    Q_{i+\triangle i}= Q_i + \frac{\partial Q_i}{\partial i}di
+\end{equation}
+
+Para $i=x,y,z$.
+
+Reemplazando la ecuación 5 en la ecuación 4:
+\begin{equation}
+    E_{acu}=-\frac{\partial Q_x}{\partial x}dx- \frac{\partial Q_y}{\partial y}dy -\frac{\partial Q_z}{\partial z}dz-E_{gen}
+\end{equation}
+
+Por otro lado, la ley de Fourier se escribe:
+\begin{equation}
+    Q_x=-\lambda_x A_{Sx} \frac{\partial T}{\partial x}
+\end{equation}
+
+Se deriva la ecuación 7:
+\begin{equation}
+    \frac{\partial Q_x}{\partial x}=\frac{\partial}{\partial x}\left(-\lambda_x A_{Sx} \frac{\partial T}{\partial x}\right)
+\end{equation}
+
+Donde $A_{Sx} = \partial y \partial z$.
+El caso anterior trata unicamente de la dimensión $X$, por lo que se extrapola al resto de dimensiones. Se considera el material isotropico, por lo que $\lambda$ sale de la derivada.
+
+\begin{equation}
+    \frac{\partial Q_x}{\partial x}=-\lambda \left( \partial y \partial z \frac{\partial^2 T}{\partial x^2}\right)
+\end{equation}
+
+La ecuación 6 quedara como:
+
+\begin{equation}
+    \rho C_P \frac{\partial T}{\partial t} \cdot dxdydz=\lambda \left(\partial y \partial z \frac{\partial^2 T}{\partial x^2}\right)dx+ \lambda \left(\partial x \partial z \frac{\partial^2 T}{\partial y^2}\right)dy +\lambda \left(\partial x \partial y \frac{\partial^2 T}{\partial z^2}\right)dz-\dot {q}_v \cdot dxdydz
+\end{equation}
+
+Se multiplica por $\frac{1}{\lambda \cdot dxdydz}$:
+
+\begin{equation}
+    \frac{\rho C_P}{\lambda} \frac{\partial T}{\partial t} =  \frac{\partial^2 T}{\partial x^2}+    \frac{\partial^2 T}{\partial y^2} +  \frac{\partial^2 T}{\partial z^2}-\frac{\dot {q}_v }{\lambda}
+\end{equation}
+
+Finalmente nos da la ecuación general para la transferencia de calor por conducción tridimensional, con generación interna de calor y acumulación de energía.
+
+\subsection{Conducción general en coordenadas cilindricas}
+
+Para esta demostración se utilizan las mismas bases que la sección anterior, pero se producen cambios dimensionales. La ecuación 1 y 3, con en las nuevas coordenadas quedara como:
+
+\begin{equation}
+    E_{gen}= \dot{q}_v \cdot rdzdrd\theta 
+\end{equation}
+
+\begin{equation}
+    E_{acu}=\rho C_P \frac{\partial T}{\partial t} \cdot rdzdrd\theta
+\end{equation}
+
+Y aplicando la primera ley de la Termodinámica:
+
+\begin{equation}
+        E_{acu}=Q_r - Q_{r+dr} + Q_z - Q_{z+dz} + Q_\theta - Q_{\theta+d\theta} -E_{gen}
+\end{equation}
+
+Tambien se aproxima por serie de Taylor nos queda la ecuación 5 aplicada a este caso. Reemplazando en la primera ley de la Termodinámica:
+
+\begin{equation}
+    E_{acu}=-\frac{\partial Q_r}{\partial r}dr- \frac{\partial Q_z}{\partial z}dz -\frac{\partial Q_\theta}{\partial \theta}d\theta-E_{gen}
+\end{equation}
+
+Se deriva la ecuación de la ley de Fourier con los parametros dimensionales cilindricos:
+
+\begin{equation}
+    E_{acu}=\lambda \cdot \frac{\partial}{\partial r} \left(rd\theta dz \frac{dT}{dr}\right)dr + \lambda \cdot \frac{\partial}{\partial z}\left(rdrd\theta \frac{dT}{dz}\right)dz + \lambda \cdot \frac{\partial}{\partial \theta}\left(drdz\frac{dT}{rd\theta}\right)d\theta-E_{gen}
+\end{equation}
+
+Dividimos por el volumen $\frac{1}{rdzdrd\theta}$:
+
+\begin{equation}
+    \rho C_P \frac{dT}{dt} =  \frac{\lambda}{r^2} \frac{\partial^2 T}{\partial \theta ^2} + \lambda \frac{\partial^2 T}{dz^2} + \frac{\lambda}{r}\frac{\partial}{\partial r} (r \frac{\partial T}{\partial r}) - \dot{q}_v 
+\end{equation}
+
+Por ultimo, la ecuación general para la conducción de calor en coordenadas cilindricas quedara:
+
+\begin{equation}
+    \frac{\rho}{\lambda} C_P \frac{dT}{dt} =  \frac{1}{r^2} \frac{\partial^2 T}{\partial \theta ^2} +  \frac{\partial^2 T}{dz^2} + \frac{1}{r}\frac{\partial}{\partial r} (r \frac{\partial T}{\partial r}) - \frac{\dot{q}_v}{\lambda} 
+\end{equation}
+
+\subsection{Conducción general en coordenadas esfericas}
+
+Por ultimo se escribira la ecuación general de la conducción en coordenadas esfericas. Al igual que en los dos items anteriores se escribe la energía generada y la energía acumulada:
+\begin{equation}
+    E_{gen}= \dot{q}_v\cdot dV=\dot{q}_v \cdot dr \cdot rsen\theta \cdot d\varphi \cdot rd\theta
+\end{equation}
+\begin{equation}
+    E_{acu}=\rho C_P \frac{dT}{dt} \cdot dr \cdot rsen\theta \cdot d\varphi \cdot rd\theta
+\end{equation}
+
+La primera ley de la Termodinámica se escribe como:
+\begin{equation}
+   E_{acu}=Q_r - Q_{r+dr} + Q_\theta - Q_{\theta+d\theta} + Q_\varphi - Q_{\varphi+d\varphi} -E_{gen} 
+\end{equation}
+
+Utilizando la expansión de Taylor exacta, y aplicandola en la primera ley de la Termodinámica:
+
+\begin{equation}
+   E_{acu}=\frac{\partial Q_r}{\partial r}dr + \frac{\partial Q_\theta}{\partial \theta}d_\theta + \frac{\partial Q_{\varphi}}{\partial \varphi}d\varphi -E_{gen} 
+\end{equation}
+
+Se definen los diferenciales de área en coordenadas esfericas:
+\begin{equation}
+    dA_r=r\cdot sen\theta \cdot d\varphi \cdot r \cdot d\theta
+\end{equation}
+\begin{equation}
+    dA_\varphi=dr\cdot r \cdot d\theta
+\end{equation}
+\begin{equation}
+    dA_\theta=dr \cdot r \cdot sen\theta \cdot d\varphi
+\end{equation}
+
+Reemplazando todos los terminos en la ecuación 22:
+\begin{equation}
+    \lambda \cdot\frac{\partial}{\partial r}\left(r^2 sen\theta\cdot d\varphi \cdot d\theta \cdot \frac{\partial T}{\partial r}\right)dr + \lambda \cdot \frac{\partial}{\partial \varphi} \left(dr\cdot r d\theta \cdot \frac{\partial T}{r\cdot sen \theta \cdot \partial \varphi}\right)d\varphi + \frac{\partial}{\partial \theta} \left(dr\cdot r sen\theta \cdot d\varphi \frac{\partial T}{r\cdot \partial \theta}\right)d\theta - E_{gen}=E_{acu}
+\end{equation}
+
+Dividiendo la ecuación por el volumen $\frac{1}{dr \cdot rsen\theta \cdot d\varphi \cdot rd\theta}$, y despejando $\lambda$:
+\begin{equation}
+    \frac{1}{r^2} \frac{\partial}{\partial r}\left(r^2\frac{\partial T}{\partial r}\right) + \frac{1}{r^2\cdot sen^2\theta}\cdot \frac{\partial^2 T}{\partial \varphi^2} + \frac{1}{r^2\cdot sen\theta}\cdot \frac{\partial}{\partial \theta}\left(sen\theta \frac{\partial T}{\partial \theta}\right) - \frac{\dot{q}_v}{\lambda} = \frac{\rho C_P}{\lambda} \frac{\partial T}{\partial t}
+\end{equation}
+
+\subsection{Discretización ecuación unidimensional de conducción con generación interna}
+Se inicia la demostración teniendo en cuenta las siguientes consideraciones:
+
+\begin{itemize}
+    \item Se considera generación interna de calor.
+    \item Flujo de calor unidireccional.
+\end{itemize}
+
+\begin{equation}
+    \frac{\partial}{\partial x} \left(\lambda \frac{\partial T}{\partial x}\right) + S = 0
+\end{equation}
+
+Se discretizara el modelo de conducción utilizando tres nodos colineales $(W,P,E)$, y se integra la ecuación 1:
+
+\begin{equation}
+    \int_W^E \frac{d}{dx} \left(\lambda \frac{dT}{dx}\right) + \int S = 0
+\end{equation}
+
+\begin{equation}
+    \lambda \frac{dT}{dx} \left[E\right] - \lambda \frac{dT}{dx} \left[W\right] - S [E,W] = 0 
+\end{equation}
+Discretizando la ecuación:
+\begin{equation}
+    \lambda_E \frac{T_E - T_P}{dx} - \lambda_W \frac{T_P - T_W}{dx} + S* = 0
+\end{equation}
+
+\begin{equation}
+    \frac{\lambda_E}{dx} T_E - \frac{\lambda_E}{dx} T_P - \frac{\lambda_W}{dx} T_P + \frac{\lambda_w}{dx} T_W + S* = 0
+\end{equation}
+
+\begin{equation}
+    T_P\left(\frac{\lambda_E}{dx} + \frac{\lambda_W}{dx}\right) = \frac{\lambda_E}{dx}T_E + \frac{\lambda_W}{dx}T_W + S^*
+\end{equation}
+
+\begin{equation}
+    a_P \cdot T_P = a_E \cdot T_E + a_W \cdot T_W + b
+\end{equation}
+
+\subsection{Conducción térmica en la interfase}
+
+Este punto se produce por la necesidad de explicar el comportamiento de los coeficientes conductivos al analizar materiales compuestos. Para esto, se utilizara como base que el flujo de calor que entra en la interfase es igual al que sale, y se puede escribir de la siguiente forma:
+\begin{equation}
+    q_{e-}=q_{e+}
+\end{equation}
+
+\begin{equation}
+    \frac{k_P(T_e - T_P)}{\delta_{x, e-}} = \frac{k_E(T_E - T_e)}{\delta_{x, e+}}
+\end{equation}
+Con la igualdad anterior, y sabiendo que la conducción a traves de la interfase $e$ será:
+
+\begin{equation}
+    q_e=\frac{k_e(T_E - T_P)}{\delta_{x,e}}
+\end{equation}
+Realizando un despeje matematico se llega a que:
+\begin{equation}
+    q_e=({T_P - T_E}) \cdot \left( {{\frac{\delta_{x,e-}}{k_P}}+\frac{\delta_{x,e+}}{k_E}} \right)^{-1}
+\end{equation}
+
+Teniendo en cuenta que existe una relación lineal entre las conductividades analizadas, de la forma:
+\begin{equation}
+    k_e=f_ek_P+(1-f_e)k_E
+\end{equation}
+
+Con $f_e$ como el factor de interpolación:
+\begin{equation}
+    f_e=\frac{\delta_{x,e+}}{\delta_{x,e}}
+\end{equation}
+
+Combinando las ecuaciones anteriores nos queda la ecuación:
+\begin{equation}
+    k_e= \left( {\frac{1-f_e}{k_P}+\frac{f_e}{k_E}}\right)^{-1}
+\end{equation}
+
+Y por ultimo, si se supone que $f_e=0.5$, se demuestra que $k_e$ es la media armonica entre $k_P$ y $k_E$:
+\begin{equation}
+    k_e=\frac{2k_P k_E}{k_P + k_E}
+\end{equation}
+
+\section{Scheme de diferencias exponenciales}
+En esta sección se demostrara la forma general del Scheme EDS.
+Se comienza definiendo el flujo de calor que corresponde a la convección:
+\begin{equation}
+    \rho u \phi
+\end{equation}
+
+Y por otro lado, el flujo de calor que representa la difusión:
+\begin{equation}
+    -\Gamma \cdot \frac{d\phi}{dx}
+\end{equation} 
+
+Y se considera $J$ la suma de ambos flujos. 
+Por definición, la derivada de $J$ respecto a $x$ es igual a 0.
+\begin{equation}
+    \rho u \phi = \Gamma \cdot \frac{d\phi}{dx}
+\end{equation}
+
+Teniendo en cuenta que la solución exacta de la ecuación anterior esta dada por:
+\begin{equation}
+    \frac{\phi - \phi_0}{\phi_L - \phi_0} = \frac{e^{Px/L}-1}{e^P - 1}
+\end{equation}
+
+Donde $P$ es el número de Peclet, y se calcula como $P=\frac{\rho u L}{\Gamma}$.
+Integrando las ecuaciones anteriores en el volumen de control de la figura se obtiene:
+\begin{equation}
+    F_e\left(\phi_P+\frac{\phi_P - \phi_E}{e^{P_e} - 1}\right) - F_w\left(\phi_P+\frac{\phi_W - \phi_P}{e^{P_w} - 1}\right)=0
+\end{equation}
+
+Finalmente se puede escribir la ecuación anterior de forma discretizada:
+\begin{equation}
+    a_P\phi_P = a_E\phi_E + a_W \phi_W
+\end{equation}
+
+Donde:
+\begin{equation}
+    a_E=\frac{F_e}{e^{P_e}-1}
+\end{equation}
+\begin{equation}
+    a_W=\frac{F_w}{e^{P_w}-1}
+\end{equation}
+\begin{equation}
+    a_P = a_E + a_W + (F_e - F_w)
+\end{equation}
+
+\end{document}
