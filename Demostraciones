@@ -1,5 +1,5 @@
 \documentclass[titlepage]{article}
-\usepackage[utf8]{inputenc} %Para que el texto lea el español
+\usepackage[utf8]{inputenc} 
 \usepackage[spanish]{babel}
 
 \usepackage{parskip}
@@ -145,7 +145,7 @@ Por ultimo, la ecuación general para la conducción de calor en coordenadas cil
 
 \subsection{Conducción general en coordenadas esfericas}
 
-Por ultimo se escribira la ecuación general de la conducción en coordenadas esfericas. Al igual que en los dos items anteriores se escribe la energía generada y la energía acumulada:
+Se escribira la ecuación general de la conducción en coordenadas esfericas. Al igual que en los dos items anteriores se escribe la energía generada y la energía acumulada:
 \begin{equation}
     E_{gen}= \dot{q}_v\cdot dV=\dot{q}_v \cdot dr \cdot rsen\theta \cdot d\varphi \cdot rd\theta
 \end{equation}
@@ -221,6 +221,47 @@ Discretizando la ecuación:
 
 \begin{equation}
     a_P \cdot T_P = a_E \cdot T_E + a_W \cdot T_W + b
+\end{equation}
+\subsection{Discretización ecuación unidimensional considerando el tiempo}
+Esta demostración, a diferencia de la anterior, considerara un flujo de calor unidimensional sin generación interna de calor, pero teniendo en consideración el factor del tiempo, en otras palabras, se analizara un regimen transitorio.
+La ecuación diferencial que describe este sistema es de la siguiente forma:
+\begin{equation}
+    \rho c \frac{\partial T}{\partial t} = \frac{\partial}{\partial x} \left(k\frac{\partial T}{\partial x} \right)
+\end{equation}
+
+Para discretizar la ecuación primero se calculara la integral de su forma diferencial, considerando que el tiempo va desde $t$ a $\triangle t$.
+\begin{equation}
+    \rho c \int_w^e \int_t^{t+\triangle t} \frac{\partial T}{\partial t} dt dx = \int_t^{t+\triangle t} \int_w^e \frac{\partial}{\partial x} \left(k \frac{\partial T}{\partial x} \right) dx dt
+\end{equation}
+
+Trabajando la ecuación queda como:
+\begin{equation}
+    \rho c \triangle x \left(T_P^1 - T_P^0\right) = \int_t^{t+\triangle t} \left[\frac{k_e\left(T_E - T_P\right)}{\delta x_e} - \frac{k_W\left(T_P - T_W\right)}{\delta x_w}\right] dt
+\end{equation}
+
+Donde $T_P^1$ y $T_P^0$ se pueden analizar como el "avance en el tiempo" de la temperatura del flujo.
+
+La ecuación anterior se puede generalizar como:
+\begin{equation}
+    \int_t^{t+\triangle t} T_P dt = \left(f T_P^1 - (1-f)T_P^0\right) \triangle t
+\end{equation}
+Donde $f$ es un factor que va de 0 a 1.
+Por ultimo, teniendo en cuenta que tenemos una ecuación lineal, se discretiza:
+\begin{equation}
+    a_P T_P = a_E \left[fT_E+(1-f)T_E^0\right] + a_W\left[fT_W + (1-f)T_W^0\right] + \left[a_P^0 - (1-f)a_E - (1-f)a_W\right]T_P^0
+\end{equation}
+Donde:
+\begin{equation}
+    a_E=\frac{a_E}{\delta x_e}
+\end{equation}
+\begin{equation}
+    a_W=\frac{a_W}{\delta x_w}
+\end{equation}
+\begin{equation}
+    a_P^0=\frac{\rho c \triangle x}{\triangle t}
+\end{equation}
+\begin{equation}
+    a_P= fa_E + fa_W + a_P^0
 \end{equation}
 
 \subsection{Conducción térmica en la interfase}
